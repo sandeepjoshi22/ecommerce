@@ -1,5 +1,6 @@
 package com.joshi.ecommerce.common.exception;
 
+import com.joshi.ecommerce.customer.CustomerNotFoundException;
 import com.joshi.ecommerce.product.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,4 +20,15 @@ public class GlobalExceptionHandler {
                 "message", exception.getMessage()
         );
     }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleCustomerNotFound(CustomerNotFoundException exception){
+        return Map.of(
+                "error", "CUSTOMER_NOT_FOUND",
+                "message", exception.getMessage()
+        );
+    }
+
+
 }
